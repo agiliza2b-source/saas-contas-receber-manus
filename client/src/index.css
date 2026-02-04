@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -43,15 +44,16 @@
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
+  /* Agiliza2b Color Palette */
+  --primary: oklch(0.45 0.2 260); /* Azul profissional Agiliza2b */
+  --primary-foreground: oklch(0.98 0.001 286.375); /* Branco/Off-white */
+  --sidebar-primary: oklch(0.42 0.19 260); /* Azul mais escuro para sidebar */
+  --sidebar-primary-foreground: oklch(0.98 0.001 286.375);
+  --chart-1: oklch(0.65 0.15 260); /* Azul claro para gráficos */
+  --chart-2: oklch(0.55 0.18 260); /* Azul médio */
+  --chart-3: oklch(0.45 0.2 260); /* Azul primário */
+  --chart-4: oklch(0.38 0.19 260); /* Azul escuro */
+  --chart-5: oklch(0.32 0.18 260); /* Azul muito escuro */
   --radius: 0.65rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.235 0.015 65);
@@ -79,10 +81,11 @@
 }
 
 .dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
+  /* Agiliza2b Dark Mode */
+  --primary: oklch(0.65 0.15 260); /* Azul claro para dark mode */
+  --primary-foreground: oklch(0.12 0.01 260); /* Azul muito escuro */
+  --sidebar-primary: oklch(0.55 0.18 260); /* Azul médio para sidebar */
+  --sidebar-primary-foreground: oklch(0.98 0.001 286.375);
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.85 0.005 65);
   --card: oklch(0.21 0.006 285.885);
@@ -100,11 +103,11 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
+  --chart-1: oklch(0.65 0.15 260);
+  --chart-2: oklch(0.55 0.18 260);
+  --chart-3: oklch(0.45 0.2 260);
+  --chart-4: oklch(0.38 0.19 260);
+  --chart-5: oklch(0.32 0.18 260);
   --sidebar: oklch(0.21 0.006 285.885);
   --sidebar-foreground: oklch(0.85 0.005 65);
   --sidebar-accent: oklch(0.274 0.006 286.033);
@@ -173,5 +176,36 @@
       padding-right: 2rem;
       max-width: 1280px; /* Standard content width */
     }
+  }
+
+  /* Agiliza2b Custom Styles */
+  body {
+    @apply font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  /* Smooth transitions */
+  * {
+    @apply transition-colors duration-200;
+  }
+
+  /* Focus ring customization */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
   }
 }
