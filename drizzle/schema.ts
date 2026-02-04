@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, decimal, boolean } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -61,3 +61,72 @@ export const clientes = mysqlTable("clientes", {
 
 export type Cliente = typeof clientes.$inferSelect;
 export type InsertCliente = typeof clientes.$inferInsert;
+
+/**
+ * Tabela de Faturamentos
+ */
+export const faturamentos = mysqlTable("faturamentos", {
+  id: int("id").autoincrement().primaryKey(),
+  clienteId: int("cliente_id").notNull(),
+  numero: varchar("numero", { length: 50 }).notNull().unique(),
+  descricao: text("descricao"),
+  dataEmissao: timestamp("data_emissao").defaultNow().notNull(),
+  dataVencimento: timestamp("data_vencimento").notNull(),
+  valorTotal: varchar("valor_total", { length: 20 }).notNull(),
+  status: mysqlEnum("status", ["pendente", "parcial", "pago", "vencido", "cancelado"]).default("pendente"),
+  tipoParcela: mysqlEnum("tipo_parcela", ["unica", "parcelado", "recorrente"]).default("unica"),
+  quantidadeParcelas: int("quantidade_parcelas").default(1),
+  jurosAoMes: varchar("juros_ao_mes", { length: 10 }),
+  desconto: varchar("desconto", { length: 20 }),
+  observacoes: text("observacoes"),
+  ativo: int("ativo").default(1),
+  criadoEm: timestamp("criadoEm").defaultNow().notNull(),
+  atualizadoEm: timestamp("atualizadoEm").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Faturamento = typeof faturamentos.$inferSelect;
+export type InsertFaturamento = typeof faturamentos.$inferInsert;
+
+/**
+ * Tabela de Parcelas
+ */
+export const parcelas = mysqlTable("parcelas", {
+  id: int("id").autoincrement().primaryKey(),
+  faturamentoId: int("faturamento_id").notNull(),
+  numeroParcela: int("numero_parcela").notNull(),
+  dataVencimento: timestamp("data_vencimento").notNull(),
+  valor: varchar("valor", { length: 20 }).notNull(),
+  juros: varchar("juros", { length: 20 }).default("0"),
+  multa: varchar("multa", { length: 20 }).default("0"),
+  desconto: varchar("desconto", { length: 20 }).default("0"),
+  valorPago: varchar("valor_pago", { length: 20 }).default("0"),
+  dataPagamento: timestamp("data_pagamento"),
+  formaPagamento: varchar("forma_pagamento", { length: 50 }),
+  status: mysqlEnum("status", ["pendente", "pago", "vencido", "cancelado"]).default("pendente"),
+  chavePix: varchar("chave_pix", { length: 255 }),
+  codigoBarras: varchar("codigo_barras", { length: 50 }),
+  ativo: int("ativo").default(1),
+  criadoEm: timestamp("criadoEm").defaultNow().notNull(),
+  atualizadoEm: timestamp("atualizadoEm").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Parcela = typeof parcelas.$inferSelect;
+export type InsertParcela = typeof parcelas.$inferInsert;
+
+/**
+ * Tabela de Itens de Faturamento
+ */
+export const itensFaturamento = mysqlTable("itens_faturamento", {
+  id: int("id").autoincrement().primaryKey(),
+  faturamentoId: int("faturamento_id").notNull(),
+  descricao: varchar("descricao", { length: 255 }).notNull(),
+  quantidade: varchar("quantidade", { length: 20 }).notNull(),
+  valorUnitario: varchar("valor_unitario", { length: 20 }).notNull(),
+  valorTotal: varchar("valor_total", { length: 20 }).notNull(),
+  ativo: int("ativo").default(1),
+  criadoEm: timestamp("criadoEm").defaultNow().notNull(),
+  atualizadoEm: timestamp("atualizadoEm").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ItemFaturamento = typeof itensFaturamento.$inferSelect;
+export type InsertItemFaturamento = typeof itensFaturamento.$inferInsert;

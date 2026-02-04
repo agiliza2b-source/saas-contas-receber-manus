@@ -22,16 +22,16 @@
 - [x] Adicionar testes unitários para validações
 
 ## Fase 3: Módulo de Faturamento
-- [ ] Criar schema de banco de dados para `faturamentos` e `parcelas`
-- [ ] Implementar helpers de banco de dados para faturamento
-- [ ] Criar rotas tRPC para CRUD de faturamentos
-- [ ] Implementar lógica de cálculo de parcelas
+- [x] Criar schema de banco de dados para `faturamentos` e `parcelas`
+- [x] Implementar helpers de banco de dados para faturamento
+- [x] Criar rotas tRPC para CRUD de faturamentos
+- [x] Implementar lógica de cálculo de parcelas (juros simples, compostos, sistema Price)
 - [ ] Criar página de faturamento com seleção de cliente e serviço
 - [ ] Implementar modal de cadastro rápido de cliente/serviço dentro do faturamento
-- [ ] Implementar cálculo automático de valor total e parcelas
+- [x] Implementar cálculo automático de valor total e parcelas
 - [ ] Criar tabela de parcelas com edição individual
 - [ ] Implementar rastreamento de envio de e-mail (status: pendente, enviado, recebido, lido)
-- [ ] Adicionar testes unitários para cálculos de parcelas
+- [x] Adicionar testes unitários para cálculos de parcelas (80 testes passando)
 
 ## Fase 4: Módulo de Contas a Receber
 - [ ] Criar página de contas a receber com busca avançada
