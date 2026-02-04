@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { MaskedInput } from "@/components/MaskedInput";
 import { Plus, Search, Loader2, AlertCircle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 
@@ -138,11 +139,13 @@ export default function Clientes() {
               <div className="space-y-2">
                 <Label htmlFor="cpfCnpj">CPF/CNPJ</Label>
                 <div className="flex gap-2">
-                  <Input
+                  <MaskedInput
                     id="cpfCnpj"
+                    maskType="cnpj"
                     placeholder="00.000.000/0000-00"
                     value={cpfCnpj}
-                    onChange={(e) => setCpfCnpj(e.target.value)}
+                    onChange={(e) => setCpfCnpj(e.currentTarget.value)}
+                    onMaskedChange={(value) => setFormData({ ...formData, cpfCnpj: value })}
                   />
                   <Button
                     variant="outline"
@@ -189,10 +192,12 @@ export default function Clientes() {
 
                 <div className="space-y-2">
                   <Label htmlFor="telefone">Telefone</Label>
-                  <Input
+                  <MaskedInput
                     id="telefone"
+                    maskType="telefone"
                     value={formData.telefone}
-                    onChange={(e) => setFormData({ ...formData, telefone: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, telefone: e.currentTarget.value })}
+                    onMaskedChange={(value) => setFormData({ ...formData, telefone: value })}
                     placeholder="(11) 99999-9999"
                   />
                 </div>
@@ -200,10 +205,12 @@ export default function Clientes() {
                 <div className="space-y-2">
                   <Label htmlFor="cep">CEP</Label>
                   <div className="flex gap-2">
-                    <Input
+                    <MaskedInput
                       id="cep"
+                      maskType="cep"
                       value={formData.cep}
-                      onChange={(e) => setFormData({ ...formData, cep: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, cep: e.currentTarget.value })}
+                      onMaskedChange={(value) => setFormData({ ...formData, cep: value })}
                       placeholder="00000-000"
                     />
                     <Button
@@ -216,7 +223,7 @@ export default function Clientes() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 col-span-2">
                   <Label htmlFor="endereco">Endereço</Label>
                   <Input
                     id="endereco"
@@ -241,7 +248,7 @@ export default function Clientes() {
                   <Input
                     id="estado"
                     value={formData.estado}
-                    onChange={(e) => setFormData({ ...formData, estado: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, estado: e.target.value.toUpperCase() })}
                     placeholder="SP"
                     maxLength={2}
                   />

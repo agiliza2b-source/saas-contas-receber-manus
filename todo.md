@@ -113,3 +113,14 @@
 - Manter validação rigorosa com Zod
 - Usar Tailwind CSS 4 com cores personalizadas da Agiliza2b
 - Implementar shadcn/ui para componentes de UI
+
+
+## Tarefas Adicionais: Máscaras e Validações
+- [x] Criar hook customizado useMask para máscaras em tempo real
+- [x] Criar componentes de Input com máscaras integradas (CPF, CNPJ, CEP, Telefone, Moeda)
+- [x] Implementar validadores avançados para email, URL, moeda
+- [x] Aplicar máscaras em formulário de clientes
+- [ ] Aplicar máscaras em formulário de faturamento
+- [ ] Aplicar máscaras em formulário de configurações
+- [x] Adicionar feedback visual de validação em tempo real
+- [x] Criar testes para máscaras e validadores (63 testes passando)
