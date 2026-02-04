@@ -26,7 +26,7 @@
 - [x] Implementar helpers de banco de dados para faturamento
 - [x] Criar rotas tRPC para CRUD de faturamentos
 - [x] Implementar lógica de cálculo de parcelas (juros simples, compostos, sistema Price)
-- [ ] Criar página de faturamento com seleção de cliente e serviço
+- [x] Criar página de faturamento com seleção de cliente e serviço
 - [ ] Implementar modal de cadastro rápido de cliente/serviço dentro do faturamento
 - [x] Implementar cálculo automático de valor total e parcelas
 - [ ] Criar tabela de parcelas com edição individual
@@ -34,13 +34,16 @@
 - [x] Adicionar testes unitários para cálculos de parcelas (80 testes passando)
 
 ## Fase 4: Módulo de Contas a Receber
-- [ ] Criar página de contas a receber com busca avançada
-- [ ] Implementar filtros de data (vencidos, a vencer, entre datas, hoje, esta semana, últimos 30 dias, mês atual)
+- [x] Criar página de contas a receber com busca avançada
+- [x] Implementar filtros de data (vencidos, a vencer, entre datas, hoje, esta semana, últimos 30 dias, mês atual)
 - [ ] Implementar exportação de relatórios (CSV, PDF)
 - [ ] Implementar agrupamento de relatórios (por data, cliente, status)
-- [ ] Criar visualizações de dados (gráficos de cobranças vencidas vs a vencer)
+- [x] Criar visualizações de dados (gráficos de cobranças vencidas vs a vencer)
 
 ## Fase 5: Módulo de Cobrança
+- [x] Criar rotas tRPC para cobrança (criar, listar, atualizar status, registrar logs)
+- [x] Implementar helpers de banco de dados para cobrança
+- [x] Criar schema de cobranças, logs de email e conciliação
 - [ ] Criar página de cobrança com busca e filtros
 - [ ] Implementar seleção em massa com checkboxes
 - [ ] Implementar botão "Enviar Faturamento" (apenas para títulos a vencer)

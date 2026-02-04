@@ -130,3 +130,94 @@ export const itensFaturamento = mysqlTable("itens_faturamento", {
 
 export type ItemFaturamento = typeof itensFaturamento.$inferSelect;
 export type InsertItemFaturamento = typeof itensFaturamento.$inferInsert;
+
+/**
+ * Tabela de Cobranças
+ */
+export const cobrancas = mysqlTable("cobrancas", {
+  id: int("id").autoincrement().primaryKey(),
+  parcelaId: int("parcela_id").notNull(),
+  faturamentoId: int("faturamento_id").notNull(),
+  clienteId: int("cliente_id").notNull(),
+  status: mysqlEnum("status", ["pendente", "enviada", "recebida", "lida", "paga", "cancelada"]).default("pendente"),
+  dataEnvio: timestamp("data_envio"),
+  dataRecebimento: timestamp("data_recebimento"),
+  dataLeitura: timestamp("data_leitura"),
+  canal: mysqlEnum("canal", ["email", "whatsapp", "sms", "pix"]).default("email"),
+  tentativas: int("tentativas").default(0),
+  proximaTentativa: timestamp("proxima_tentativa"),
+  observacoes: text("observacoes"),
+  ativo: int("ativo").default(1),
+  criadoEm: timestamp("criadoEm").defaultNow().notNull(),
+  atualizadoEm: timestamp("atualizadoEm").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Cobranca = typeof cobrancas.$inferSelect;
+export type InsertCobranca = typeof cobrancas.$inferInsert;
+
+/**
+ * Tabela de Logs de Email
+ */
+export const logsEmail = mysqlTable("logs_email", {
+  id: int("id").autoincrement().primaryKey(),
+  cobrancaId: int("cobranca_id"),
+  faturamentoId: int("faturamento_id"),
+  parcelaId: int("parcela_id"),
+  clienteId: int("cliente_id"),
+  emailDestino: varchar("email_destino", { length: 320 }).notNull(),
+  assunto: varchar("assunto", { length: 255 }).notNull(),
+  corpo: text("corpo"),
+  status: mysqlEnum("status", ["enviado", "falha", "bounce", "recebido", "lido"]).default("enviado"),
+  mensagemErro: text("mensagem_erro"),
+  dataEnvio: timestamp("data_envio").defaultNow().notNull(),
+  dataRecebimento: timestamp("data_recebimento"),
+  dataLeitura: timestamp("data_leitura"),
+  criadoEm: timestamp("criadoEm").defaultNow().notNull(),
+});
+
+export type LogEmail = typeof logsEmail.$inferSelect;
+export type InsertLogEmail = typeof logsEmail.$inferInsert;
+
+/**
+ * Tabela de Conciliação de Pagamentos
+ */
+export const conciliacao = mysqlTable("conciliacao", {
+  id: int("id").autoincrement().primaryKey(),
+  parcelaId: int("parcela_id").notNull(),
+  faturamentoId: int("faturamento_id").notNull(),
+  clienteId: int("cliente_id").notNull(),
+  valor: varchar("valor", { length: 20 }).notNull(),
+  dataRecebimento: timestamp("data_recebimento").notNull(),
+  formaPagamento: varchar("forma_pagamento", { length: 50 }).notNull(),
+  referencia: varchar("referencia", { length: 255 }),
+  descricao: text("descricao"),
+  status: mysqlEnum("status", ["pendente", "confirmada", "rejeitada"]).default("pendente"),
+  observacoes: text("observacoes"),
+  criadoEm: timestamp("criadoEm").defaultNow().notNull(),
+  atualizadoEm: timestamp("atualizadoEm").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Conciliacao = typeof conciliacao.$inferSelect;
+export type InsertConciliacao = typeof conciliacao.$inferInsert;
+
+/**
+ * Tabela de Histórico de Pagamentos
+ */
+export const historicoPagamentos = mysqlTable("historico_pagamentos", {
+  id: int("id").autoincrement().primaryKey(),
+  parcelaId: int("parcela_id").notNull(),
+  faturamentoId: int("faturamento_id").notNull(),
+  clienteId: int("cliente_id").notNull(),
+  valorPago: varchar("valor_pago", { length: 20 }).notNull(),
+  dataPagamento: timestamp("data_pagamento").notNull(),
+  formaPagamento: varchar("forma_pagamento", { length: 50 }).notNull(),
+  referencia: varchar("referencia", { length: 255 }),
+  jurosAplicados: varchar("juros_aplicados", { length: 20 }).default("0"),
+  multaAplicada: varchar("multa_aplicada", { length: 20 }).default("0"),
+  descontoAplicado: varchar("desconto_aplicado", { length: 20 }).default("0"),
+  observacoes: text("observacoes"),
+  criadoEm: timestamp("criadoEm").defaultNow().notNull(),
+});
+
+export type HistoricoPagamento = typeof historicoPagamentos.$inferSelect;
+export type InsertHistoricoPagamento = typeof historicoPagamentos.$inferInsert;

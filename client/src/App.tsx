@@ -9,6 +9,8 @@ import MainLayout from "./components/MainLayout";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Clientes from "./pages/Clientes";
+import Faturamento from "./pages/Faturamento";
+import ContasReceber from "./pages/ContasReceber";
 
 function LoadingScreen() {
   return (
@@ -52,8 +54,8 @@ function Router() {
       <Switch>
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/clientes" component={Clientes} />
-        <Route path="/faturamento" component={() => <PlaceholderPage title="Faturamento" />} />
-        <Route path="/contas-receber" component={() => <PlaceholderPage title="Contas a Receber" />} />
+        <Route path="/faturamento" component={Faturamento} />
+        <Route path="/contas-receber" component={ContasReceber} />
         <Route path="/cobranca" component={() => <PlaceholderPage title="Cobrança" />} />
         <Route path="/configuracoes" component={() => <PlaceholderPage title="Configurações" />} />
         <Route path="/404" component={NotFound} />
