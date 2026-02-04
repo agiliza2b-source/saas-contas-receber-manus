@@ -11,6 +11,8 @@ import Dashboard from "./pages/Dashboard";
 import Clientes from "./pages/Clientes";
 import Faturamento from "./pages/Faturamento";
 import ContasReceber from "./pages/ContasReceber";
+import Cobranca from "./pages/Cobranca";
+import Configuracoes from "./pages/Configuracoes";
 
 function LoadingScreen() {
   return (
@@ -56,8 +58,8 @@ function Router() {
         <Route path="/clientes" component={Clientes} />
         <Route path="/faturamento" component={Faturamento} />
         <Route path="/contas-receber" component={ContasReceber} />
-        <Route path="/cobranca" component={() => <PlaceholderPage title="Cobrança" />} />
-        <Route path="/configuracoes" component={() => <PlaceholderPage title="Configurações" />} />
+        <Route path="/cobranca" component={Cobranca} />
+        <Route path="/configuracoes" component={Configuracoes} />
         <Route path="/404" component={NotFound} />
         <Route component={NotFound} />
       </Switch>

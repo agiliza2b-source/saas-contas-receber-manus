@@ -44,8 +44,8 @@
 - [x] Criar rotas tRPC para cobrança (criar, listar, atualizar status, registrar logs)
 - [x] Implementar helpers de banco de dados para cobrança
 - [x] Criar schema de cobranças, logs de email e conciliação
-- [ ] Criar página de cobrança com busca e filtros
-- [ ] Implementar seleção em massa com checkboxes
+- [x] Criar página de cobrança com busca e filtros
+- [x] Implementar seleção em massa com checkboxes
 - [ ] Implementar botão "Enviar Faturamento" (apenas para títulos a vencer)
 - [ ] Implementar botão "Enviar Cobrança" (apenas para títulos vencidos)
 - [ ] Integrar com sistema PIX existente para geração de QR Code
@@ -56,16 +56,16 @@
 - [ ] Adicionar rastreamento de envio de e-mail (status: pendente, enviado, recebido, lido)
 
 ## Fase 6: Telas de Configuração
-- [ ] Criar página de configurações da empresa (dados, CNPJ, endereço, logo)
-- [ ] Criar aba de configuração de SMTP (melhorar existente com tenant_id)
-- [ ] Criar aba de configuração de WhatsApp
-- [ ] Criar aba de configuração de SMS
+- [x] Criar página de configurações da empresa (dados, CNPJ, endereço, logo)
+- [x] Criar aba de configuração de SMTP (melhorar existente com tenant_id)
+- [x] Criar aba de configuração de WhatsApp
+- [x] Criar aba de configuração de SMS
 - [ ] Criar aba de configuração de conta bancária para conciliação
-- [ ] Criar aba de configuração de PIX (melhorar existente com tenant_id)
+- [x] Criar aba de configuração de PIX (melhorar existente com tenant_id)
 - [ ] Criar aba de configuração de Boleto
 - [ ] Criar aba de configuração de Cartão e Link de Pagamento
 - [ ] Criar aba de configuração de formulário de cobrança
-- [ ] Implementar validação de credenciais para cada meio de pagamento
+- [x] Implementar validação de credenciais para cada meio de pagamento (Zod schemas)
 
 ## Fase 7: Segurança e Autenticação
 - [ ] Implementar autenticação de dois fatores (2FA) com TOTP
