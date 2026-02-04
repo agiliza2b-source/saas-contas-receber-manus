@@ -9,6 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { MaskedInput } from "@/components/MaskedInput";
 import { toast } from "sonner";
 import { Mail, Key, MessageSquare, Smartphone, Building2, Lock, AlertCircle, CheckCircle2 } from "lucide-react";
+import { LogoUpload } from "@/components/LogoUpload";
 
 export default function Configuracoes() {
   const [activeTab, setActiveTab] = useState("empresa");
@@ -23,6 +24,7 @@ export default function Configuracoes() {
     cidade: "",
     estado: "",
     cep: "",
+    logo: "",
   });
 
   // Estados para SMTP
@@ -187,7 +189,7 @@ export default function Configuracoes() {
                     maxLength={2}
                   />
                 </div>
-                <div>
+                <div className="md:col-span-2">
                   <Label>CEP</Label>
                   <MaskedInput
                     maskType="cep"
@@ -196,6 +198,12 @@ export default function Configuracoes() {
                     placeholder="01310-100"
                   />
                 </div>
+              </div>
+              <div className="border-t pt-6">
+                <LogoUpload
+                  currentLogo={empresa.logo}
+                  onLogoChange={(logo) => setEmpresa({ ...empresa, logo })}
+                />
               </div>
               <Button
                 onClick={() => salvarEmpresa.mutate(empresa)}

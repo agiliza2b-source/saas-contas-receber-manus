@@ -127,3 +127,11 @@
 - [ ] Aplicar máscaras em formulário de configurações
 - [x] Adicionar feedback visual de validação em tempo real
 - [x] Criar testes para máscaras e validadores (63 testes passando)
+
+
+## Tarefas de UX/UI - Melhorias de Interface
+- [x] Ajustar espaçamento dos labels para evitar sobreposição com inputs (mb-2 adicionado)
+- [x] Remover efeitos de contorno (outline) dos inputs, deixar apenas coloração (focus-visible com bg-primary/5)
+- [x] Adicionar upload de logo na aba Empresa (componente LogoUpload criado)
+- [ ] Criar preview da logo na barra lateral
+- [ ] Usar logo nos relatórios e emails
