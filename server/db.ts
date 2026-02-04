@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, clientes, servicos, InsertCliente, Cliente, Servico, InsertServico } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,105 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Clientes
+export async function criarCliente(cliente: InsertCliente): Promise<Cliente | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create client: database not available");
+    return null;
+  }
+
+  try {
+    const result = await db.insert(clientes).values(cliente);
+    const id = (result as any)[0]?.insertId;
+    if (id) {
+      const created = await db.select().from(clientes).where(eq(clientes.id, id as number)).limit(1);
+      return created.length > 0 ? created[0] : null;
+    }
+    return null;
+  } catch (error) {
+    console.error("[Database] Failed to create client:", error);
+    throw error;
+  }
+}
+
+export async function obterClientePorCpfCnpj(cpfCnpj: string): Promise<Cliente | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get client: database not available");
+    return undefined;
+  }
+
+  const result = await db.select().from(clientes).where(eq(clientes.cpfCnpj, cpfCnpj)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function obterClientePorId(id: number): Promise<Cliente | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get client: database not available");
+    return undefined;
+  }
+
+  const result = await db.select().from(clientes).where(eq(clientes.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function listarClientes(): Promise<Cliente[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot list clients: database not available");
+    return [];
+  }
+
+  return await db.select().from(clientes).where(eq(clientes.ativo, 1));
+}
+
+export async function atualizarCliente(id: number, cliente: Partial<InsertCliente>): Promise<Cliente | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update client: database not available");
+    return null;
+  }
+
+  try {
+    await db.update(clientes).set(cliente).where(eq(clientes.id, id));
+    const updated = await obterClientePorId(id);
+    return updated || null;
+  } catch (error) {
+    console.error("[Database] Failed to update client:", error);
+    throw error;
+  }
+}
+
+// Servicos
+export async function criarServico(servico: InsertServico): Promise<Servico | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create service: database not available");
+    return null;
+  }
+
+  try {
+    const result = await db.insert(servicos).values(servico);
+    const id = (result as any)[0]?.insertId;
+    if (id) {
+      const created = await db.select().from(servicos).where(eq(servicos.id, id as number)).limit(1);
+      return created.length > 0 ? created[0] : null;
+    }
+    return null;
+  } catch (error) {
+    console.error("[Database] Failed to create service:", error);
+    throw error;
+  }
+}
+
+export async function listarServicos(): Promise<Servico[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot list services: database not available");
+    return [];
+  }
+
+  return await db.select().from(servicos).where(eq(servicos.ativo, 1));
+}

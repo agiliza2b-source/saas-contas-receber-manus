@@ -10,16 +10,16 @@
 - [x] Atualizar landing page Home com design moderno
 
 ## Fase 2: Módulo de Cadastro de Clientes e Serviços
-- [ ] Criar schema de banco de dados para `clientes` e `servicos`
-- [ ] Implementar helpers de banco de dados em `server/db.ts`
-- [ ] Criar rotas tRPC para CRUD de clientes e serviços
-- [ ] Implementar integração com API de CEP (ViaCEP)
-- [ ] Implementar integração com API de CNPJ (BrasilAPI)
-- [ ] Implementar validação de CPF/CNPJ
-- [ ] Criar página de cadastro de clientes com busca automática
+- [x] Criar schema de banco de dados para `clientes` e `servicos`
+- [x] Implementar helpers de banco de dados em `server/db.ts`
+- [x] Criar rotas tRPC para CRUD de clientes e serviços
+- [x] Implementar integração com API de CEP (ViaCEP)
+- [x] Implementar integração com API de CNPJ (BrasilAPI)
+- [x] Implementar validação de CPF/CNPJ
+- [x] Criar página de cadastro de clientes com busca automática
 - [ ] Criar página de cadastro de serviços
 - [ ] Implementar busca e filtros para clientes e serviços
-- [ ] Adicionar testes unitários para validações
+- [x] Adicionar testes unitários para validações
 
 ## Fase 3: Módulo de Faturamento
 - [ ] Criar schema de banco de dados para `faturamentos` e `parcelas`
