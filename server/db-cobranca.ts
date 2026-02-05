@@ -26,8 +26,8 @@ export async function criarCobranca(cobranca: InsertCobranca): Promise<Cobranca 
   }
 
   try {
-    const result = await db.insert(cobrancas).values(cobranca);
-    const cobrancaId = (result as any)[0]?.insertId;
+    const result = await db.insert(cobrancas).values(cobranca).returning();
+    const cobrancaId = result[0]?.id;
 
     if (!cobrancaId) return null;
 
@@ -108,8 +108,8 @@ export async function registrarLogEmail(log: InsertLogEmail): Promise<LogEmail |
   if (!db) return null;
 
   try {
-    const result = await db.insert(logsEmail).values(log);
-    const logId = (result as any)[0]?.insertId;
+    const result = await db.insert(logsEmail).values(log).returning();
+    const logId = result[0]?.id;
 
     if (!logId) return null;
 
@@ -139,8 +139,8 @@ export async function criarConciliacao(conc: InsertConciliacao): Promise<Concili
   if (!db) return null;
 
   try {
-    const result = await db.insert(conciliacao).values(conc);
-    const concId = (result as any)[0]?.insertId;
+    const result = await db.insert(conciliacao).values(conc).returning();
+    const concId = result[0]?.id;
 
     if (!concId) return null;
 
@@ -194,8 +194,8 @@ export async function registrarHistoricoPagamento(
   if (!db) return null;
 
   try {
-    const result = await db.insert(historicoPagamentos).values(historico);
-    const histId = (result as any)[0]?.insertId;
+    const result = await db.insert(historicoPagamentos).values(historico).returning();
+    const histId = result[0]?.id;
 
     if (!histId) return null;
 

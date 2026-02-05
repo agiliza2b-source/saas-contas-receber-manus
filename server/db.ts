@@ -1,5 +1,6 @@
 import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 import { InsertUser, users, clientes, servicos, InsertCliente, Cliente, Servico, InsertServico } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -9,7 +10,8 @@ let _db: ReturnType<typeof drizzle> | null = null;
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      const client = postgres(process.env.DATABASE_URL);
+      _db = drizzle(client);
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
@@ -68,7 +70,8 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       updateSet.lastSignedIn = new Date();
     }
 
-    await db.insert(users).values(values).onDuplicateKeyUpdate({
+    await db.insert(users).values(values).onConflictDoUpdate({
+      target: users.openId,
       set: updateSet,
     });
   } catch (error) {
@@ -98,13 +101,8 @@ export async function criarCliente(cliente: InsertCliente): Promise<Cliente | nu
   }
 
   try {
-    const result = await db.insert(clientes).values(cliente);
-    const id = (result as any)[0]?.insertId;
-    if (id) {
-      const created = await db.select().from(clientes).where(eq(clientes.id, id as number)).limit(1);
-      return created.length > 0 ? created[0] : null;
-    }
-    return null;
+    const result = await db.insert(clientes).values(cliente).returning();
+    return result.length > 0 ? result[0] : null;
   } catch (error) {
     console.error("[Database] Failed to create client:", error);
     throw error;
@@ -151,9 +149,8 @@ export async function atualizarCliente(id: number, cliente: Partial<InsertClient
   }
 
   try {
-    await db.update(clientes).set(cliente).where(eq(clientes.id, id));
-    const updated = await obterClientePorId(id);
-    return updated || null;
+    const result = await db.update(clientes).set(cliente).where(eq(clientes.id, id)).returning();
+    return result.length > 0 ? result[0] : null;
   } catch (error) {
     console.error("[Database] Failed to update client:", error);
     throw error;
@@ -169,13 +166,8 @@ export async function criarServico(servico: InsertServico): Promise<Servico | nu
   }
 
   try {
-    const result = await db.insert(servicos).values(servico);
-    const id = (result as any)[0]?.insertId;
-    if (id) {
-      const created = await db.select().from(servicos).where(eq(servicos.id, id as number)).limit(1);
-      return created.length > 0 ? created[0] : null;
-    }
-    return null;
+    const result = await db.insert(servicos).values(servico).returning();
+    return result.length > 0 ? result[0] : null;
   } catch (error) {
     console.error("[Database] Failed to create service:", error);
     throw error;

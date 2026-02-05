@@ -17,17 +17,16 @@ export async function criarFaturamentoComParcelas(
 
   try {
     // Inserir faturamento
-    const resultFat = await db.insert(faturamentos).values(faturamento);
-    const faturamentoId = (resultFat as any)[0]?.insertId;
+    const resultFat = await db.insert(faturamentos).values(faturamento).returning();
+    const faturamentoId = resultFat[0]?.id;
 
     if (!faturamentoId) return null;
 
     // Inserir itens
-    for (const item of itens) {
-      await db.insert(itensFaturamento).values({
-        ...item,
-        faturamentoId,
-      });
+    if (itens.length > 0) {
+      await db.insert(itensFaturamento).values(
+        itens.map(item => ({ ...item, faturamentoId }))
+      );
     }
 
     // Gerar parcelas automaticamente
